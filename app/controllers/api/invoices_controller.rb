@@ -1,4 +1,4 @@
-class InvoicesController < ApplicationController
+class Api::InvoicesController < ApplicationController
   before_action :set_invoice, only: [:show, :update, :destroy]
 
   # GET /invoices
@@ -18,7 +18,7 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.new(invoice_params)
 
     if @invoice.save
-      render json: @invoice, status: :created, location: @invoice
+      render json: @invoice, status: :created, location: api_invoice_url(@invoice)
     else
       render json: @invoice.errors, status: :unprocessable_entity
     end
@@ -46,6 +46,6 @@ class InvoicesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def invoice_params
-      params.require(:invoice).permit(:number, :date, :company, :charge_for, :total_in_cents, :emails)
+      params.require(:invoice).permit(:number, :date, :company, :charge_for, :total_in_cents, emails: [])
     end
 end
