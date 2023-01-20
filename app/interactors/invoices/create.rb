@@ -2,7 +2,8 @@ class Invoices::Create
   include Interactor
 
   def call
-    send_emails if create_invoice
+    create_invoice
+    send_emails
   end
 
   private
@@ -13,8 +14,6 @@ class Invoices::Create
   end
 
   def send_emails
-    context.invoice.emails.each do |email|
-      #Invoices::SendByEmail.call(email)
-    end
+    Invoices::SendEmail.call(params: context.invoice)
   end
 end
