@@ -15,10 +15,11 @@ class Api::InvoicesController < ApplicationController
 
   # POST /invoices
   def create
-    @invoice = Invoice.new(invoice_params)
+    result = Invoices::Create.call(params: invoice_params)
+    @invoice = result.invoice
 
-    if @invoice.save
-      render json: @invoice, status: :created, location: api_invoice_url(@invoice)
+    if result.success?
+      render json: @invoice, location: api_invoice_url(@invoice)
     else
       render json: @invoice.errors, status: :unprocessable_entity
     end
