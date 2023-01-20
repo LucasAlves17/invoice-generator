@@ -1,5 +1,4 @@
 class Api::InvoicesController < ApplicationController
-  before_action :set_invoice, only: [:show, :update, :destroy]
 
   # GET /invoices
   def index
@@ -10,6 +9,8 @@ class Api::InvoicesController < ApplicationController
 
   # GET /invoices/1
   def show
+    Invoice.find(params[:id])
+
     render json: @invoice
   end
 
@@ -27,26 +28,23 @@ class Api::InvoicesController < ApplicationController
 
   # PATCH/PUT /invoices/1
   def update
-    if @invoice.update(invoice_params)
-      render json: @invoice
+    result = Invoices::UpdateEmailList.call(params: invoice_new_emails)
+    @invoice = result.invoice
+
+    if result.success?
+      render json: @invoice, location: api_invoice_url(@invoice)
     else
       render json: @invoice.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /invoices/1
-  def destroy
-    @invoice.destroy
+  private
+
+  def invoice_params
+    params.require(:invoice).permit(:number, :date, :company, :charge_for, :total_in_cents, emails: [])
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_invoice
-      @invoice = Invoice.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def invoice_params
-      params.require(:invoice).permit(:number, :date, :company, :charge_for, :total_in_cents, emails: [])
-    end
+  def invoice_new_emails
+    params.require(:invoice).permit(emails: []).merge(id: params[:id])
+  end
 end
