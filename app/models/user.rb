@@ -1,3 +1,3 @@
 class User < ApplicationRecord
-  validates_presence_of :email
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
 end
