@@ -21,9 +21,9 @@ class Api::InvoicesController < ApplicationController
     @invoice = result.invoice
 
     if result.success?
-      render json: @invoice, location: api_invoice_url(@invoice)
+      render json: @invoice, location: api_invoice_url(@invoice), status: :created
     else
-      render json: @invoice.errors, status: :unprocessable_entity
+      render json: result.errors, status: :unprocessable_entity
     end
   end
 
@@ -35,7 +35,7 @@ class Api::InvoicesController < ApplicationController
     if result.success?
       render json: @invoice, location: api_invoice_url(@invoice)
     else
-      render json: @invoice.errors, status: :unprocessable_entity
+      render json: result.errors, status: :unprocessable_entity
     end
   end
 

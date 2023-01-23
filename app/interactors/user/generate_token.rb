@@ -2,6 +2,7 @@ class User::GenerateToken
   include Interactor
 
   def call
+    validate_email
     find_user
     create_user if context.user.nil?
     generate_token
@@ -9,6 +10,11 @@ class User::GenerateToken
   end
 
   private
+
+  def validate_email
+    return unless context.email.nil?
+    context.fail!(errors: 'Email is missing')
+  end
 
   def find_user
     context.user = User.find_by(email: context.email)

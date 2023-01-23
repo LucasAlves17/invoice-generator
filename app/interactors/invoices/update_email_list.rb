@@ -2,12 +2,18 @@ class Invoices::UpdateEmailList
   include Interactor
 
   def call
+    validate_emails
     find_invoice
     send_emails
     update_email_list
   end
 
   private
+
+  def validate_emails
+    return if context.params[:emails].count > 0
+    context.fail!(errors: 'Send at least one email')
+  end
 
   def find_invoice
     context.invoice = Invoice.find(context.params[:id])

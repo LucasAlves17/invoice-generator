@@ -10,7 +10,7 @@ class Invoices::Create
 
   def create_invoice
     context.invoice = Invoice.new(context.params) 
-    context.fail! unless context.invoice.save 
+    context.fail!(errors: context.invoice.errors) unless context.invoice.save 
   end
 
   def send_emails
