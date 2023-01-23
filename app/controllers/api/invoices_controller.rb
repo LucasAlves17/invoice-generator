@@ -1,4 +1,5 @@
 class Api::InvoicesController < ApplicationController
+  before_action :authenticate_user, only: [:create, :update]
 
   # GET /invoices
   def index
@@ -9,7 +10,7 @@ class Api::InvoicesController < ApplicationController
 
   # GET /invoices/1
   def show
-    Invoice.find(params[:id])
+    @invoice = Invoice.find(params[:id])
 
     render json: @invoice
   end
