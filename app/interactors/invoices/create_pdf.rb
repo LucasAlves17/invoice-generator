@@ -8,6 +8,6 @@ class Invoices::CreatePdf
     pdf.text "Company: #{context.params[:company]}"
     pdf.text "Charge for: #{context.params[:charge_for]}"
     pdf.text "Total: #{context.params[:total_in_cents].to_f / 100}"
-    pdf
+    context.pdf = pdf
   end
 end
