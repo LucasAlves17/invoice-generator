@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2023_01_21_154825) do
     t.string "company", null: false
     t.string "charge_for", null: false
     t.integer "total_in_cents", null: false
-    t.string "emails", default: [], null: false, array: true
+    t.string "emails", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
