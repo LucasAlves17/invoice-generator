@@ -12,7 +12,7 @@ class User::GenerateToken
   private
 
   def validate_email
-    return unless context.email.nil?
+    return unless context.email.blank? 
     context.fail!(errors: 'Email is missing')
   end
 
