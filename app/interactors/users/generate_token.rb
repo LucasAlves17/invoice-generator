@@ -1,4 +1,4 @@
-class User::GenerateToken
+class Users::GenerateToken
   include Interactor
 
   def call
@@ -21,7 +21,7 @@ class User::GenerateToken
   end
 
   def create_user
-    result = User::Create.call(email: context.email)
+    result = Users::Create.call(email: context.email)
     context.user = result.user
   end
 

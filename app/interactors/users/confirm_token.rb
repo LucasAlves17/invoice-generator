@@ -1,4 +1,4 @@
-class User::ConfirmToken
+class Users::ConfirmToken
   include Interactor
 
   def call
