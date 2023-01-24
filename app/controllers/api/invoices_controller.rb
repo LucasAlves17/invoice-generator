@@ -3,7 +3,7 @@ class Api::InvoicesController < ApplicationController
 
   # GET /invoices
   def index
-    @invoices = Invoice.all
+    @invoices = Invoice.filter(params.slice(:number, :date))
 
     render json: @invoices
   end
@@ -23,7 +23,7 @@ class Api::InvoicesController < ApplicationController
     if result.success?
       render json: @invoice, location: api_invoice_url(@invoice), status: :created
     else
-      render json: result.errors, status: :unprocessable_entity
+      render json: { errors: result.errors }, status: :unprocessable_entity
     end
   end
 
@@ -35,7 +35,7 @@ class Api::InvoicesController < ApplicationController
     if result.success?
       render json: @invoice, location: api_invoice_url(@invoice)
     else
-      render json: result.errors, status: :unprocessable_entity
+      render json: { errors: result.errors }, status: :unprocessable_entity
     end
   end
 
