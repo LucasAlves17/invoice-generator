@@ -1,5 +1,5 @@
 class Api::InvoicesController < ApplicationController
-  before_action :authenticate_user, only: [:create, :update]
+  before_action :authenticate_user
 
   # GET /invoices
   def index

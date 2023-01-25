@@ -11,7 +11,7 @@ RSpec.describe "/api/invoices", type: :request do
   describe "GET /index" do
     it "renders a successful response" do
       Invoice.create! valid_attributes
-      get api_invoices_url, as: :json
+      get api_invoices_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -19,7 +19,7 @@ RSpec.describe "/api/invoices", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       invoice = Invoice.create! valid_attributes
-      get "#{api_invoices_url}/#{invoice[:id]})", as: :json
+      get "#{api_invoices_url}/#{invoice[:id]})", headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
