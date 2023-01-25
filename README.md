@@ -77,6 +77,7 @@ The following endpoints are available:
 | Endpoints                          | Usage                              | Params             |
 | ---------------------------------- | ---------------------------------- | ------------------ |
 | `POST /api/users`                  | Create a new user or change token. | **email**:[String] |
+| `POST /api/users/login`            | Validate the token.                | **token**:[String] |
 | `GET /api/users/comfirm?token=123` | Confirm the user token.            |                    |
 
 ### Invoices
