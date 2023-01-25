@@ -31,6 +31,6 @@ class Invoices::UpdateEmailList
   end
 
   def email_params
-    context.invoice.slice(:number, :date, :company, :charge_for, :total_in_cents).merge(emails: context.params[:emails])    
+    context.invoice.slice(:id, :number, :date, :company, :charge_for, :total_in_cents).merge(emails: context.params[:emails])    
   end
 end
