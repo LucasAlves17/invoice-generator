@@ -11,6 +11,17 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  # POST /users/login
+  def login
+    result = Users::Login.call(token: params[:token])
+    
+    if result.success?
+      render json: { message: "Token is valid!" }, status: :ok
+    else
+      render json: { errors: result.errors }, status: :unprocessable_entity
+    end
+  end
+
   # GET /users/confirm
   def confirm
     result = Users::ConfirmToken.call(token_to_confirm: params[:token])

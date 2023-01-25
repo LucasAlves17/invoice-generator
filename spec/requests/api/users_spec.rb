@@ -66,4 +66,22 @@ RSpec.describe "/api/users", type: :request do
       expect(response).to be_successful
     end
   end
+
+  describe "POST /users/login" do
+    let(:user) { create :user }
+
+    context "with valid parameters" do
+      it "renders a successful response" do
+        post api_login_users_url, params: { token: user[:token] }, as: :json
+        expect(response).to be_successful
+      end
+    end
+
+    context "with invalid parameters" do
+      it "renders a JSON response with errors" do
+        post api_login_users_url, params: { token: "123" }, as: :json
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
 end

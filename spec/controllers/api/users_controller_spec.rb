@@ -63,4 +63,36 @@ RSpec.describe Api::UsersController, type: :controller do
       end
     end
   end
+
+  describe "#login" do
+    context "when successful" do
+      let(:user) { create :user }
+
+      before do
+        expect(Users::Login).to receive(:call).once.with(token: user[:token]).and_return(context)
+      end
+
+      let(:context) { double(:context, success?: true ) }
+
+      it "return 200" do
+        response = post :login, params: { token: user[:token] }
+
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context "when unsuccessful" do
+      before do
+        expect(Users::Login).to receive(:call).once.with(token: "123").and_return(context)
+      end
+
+      let(:context) { double(:context, success?: false, errors: "Invalid token") }
+
+      it "return 422" do
+        response = post :login, params: { token: "123" }
+
+        expect(response.status).to eq(422)
+      end
+    end
+  end
 end
