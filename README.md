@@ -35,6 +35,8 @@ cd invoice-generator
 # install Ruby on Rails dependencies
 bundle install
 
+# modify the database config, in the file `config/database.yml` configure your username and password
+
 # create the development and test databases
 rails db:create
 
