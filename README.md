@@ -84,7 +84,7 @@ The following endpoints are available:
 
 ### Invoices
 
-The `POST` and `PUT` endpoints needs a header parameter `Authorization`, that is avaliable after the email confirmation.
+The following endpoints need a header parameter `Authorization`, which is available after email confirmation.
 
 | Endpoints               | Usage                                                              | Params                                                                                                                                         |
 | ----------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
